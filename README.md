@@ -13,6 +13,9 @@
 
 # git log --graph --pretty=oneline --abbrev-commit 查看时间线的分合过程
 
+# 设置别名
+#  git config --global alias.tree "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+
 
 # git branch -d 分支---删除本地分支
 # git push --delete origin 分支---删除远程分支

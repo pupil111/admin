@@ -6,6 +6,7 @@
 # git checkout 分支----切换分支
 # git checkout -b 新分支---新建并切换到新分支
 # git branch ----查看所有分支（当前分支前有*）
-# git branch -d 分支---删除分支
 # git merge 分支---将分支合并到当前分支
+# git branch -d 分支---删除本地分支
+# git push --delete origin 分支---删除远程分支
 

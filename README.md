@@ -34,3 +34,22 @@
 # 启用并删除隐藏文件
 # git stash pop stash@{n}
 
+# ========================================
+
+# git tag ---展示标签
+# git tag tagName ---添加标签
+# git tag -a tagName -m tgaMessage ---添加附带注释的标签
+# git show tagName ---展示标签信息
+
+
+
+
+
+
+
+
+
+
+
+
+

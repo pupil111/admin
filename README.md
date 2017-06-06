@@ -39,6 +39,8 @@
 # git tag ---展示标签
 # git tag tagName ---添加标签
 # git tag -a tagName -m tgaMessage ---添加附带注释的标签
+# git tag -a tagName commitId ----根据提交ID添加tag
+
 # git show tagName ---展示标签信息
 
 

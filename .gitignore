@@ -1,7 +1,7 @@
 /target/
-/.classpath
-/.project
+.classpath
+.project
 /.settings/
 /.externalToolBuilders/
-/admin.iml
-/*.md
+admin.iml
+*.md

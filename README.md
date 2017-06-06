@@ -20,3 +20,4 @@
 # git branch -d 分支---删除本地分支
 # git push --delete origin 分支---删除远程分支
 
+# git add . ---添加所有开发区的更改到暂存区

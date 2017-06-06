@@ -43,8 +43,9 @@
 
 # git show tagName ---展示标签信息
 
+# ========================================
 
-# git rm -r --cached . ---第一次执行.gitignore时先执行该命令清除缓存
+# git rm -r --cached . ---以前可以提交的文件，在.gitignore中限制时先执行该命令清除缓存
 
 
 

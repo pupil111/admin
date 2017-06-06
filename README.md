@@ -26,11 +26,11 @@
 # git stash
 
 # 启用隐藏文件
-# git stash apply
+# git stash apply stash@{n}
 
 # 删除隐藏文件
-# git stash drop
+# git stash drop stash@{n}
 
 # 启用并删除隐藏文件
-# git stash pop
+# git stash pop stash@{n}
 

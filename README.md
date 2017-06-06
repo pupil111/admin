@@ -21,3 +21,16 @@
 # git push --delete origin 分支---删除远程分支
 
 # git add . ---添加所有开发区的更改到暂存区
+
+# 隐藏开发区的未提交的文件
+# git stash
+
+# 启用隐藏文件
+# git stash apply
+
+# 删除隐藏文件
+# git stash drop
+
+# 启用并删除隐藏文件
+# git stash pop
+

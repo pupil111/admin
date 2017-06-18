@@ -15,19 +15,21 @@
 # git merge 分支---将分支合并到当前分支(Fast forward快进模式，合并后历史中也看不出合并)
 # git merge --no-ff 分支（合并后有合并记录）
 
-# git log --graph --pretty=oneline --abbrev-commit 查看时间线的分合过程
-
-# 设置别名
-#  git config --global alias.tree "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
-
-
 # git branch -d 分支---删除本地分支
 # git push --delete origin 分支---删除远程分支
 
-# git add . ---添加所有开发区的更改到暂存区
+# git log --graph --pretty=oneline --abbrev-commit 查看时间线的分合过程
 
-# 隐藏开发区的未提交的文件
-# git stash
+# 设置时间线的分合过程的别名
+#  git config --global alias.tree "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+
+# git add . ---添加所有开发区的更改到暂存区
+# git commit -m 注释 ----将暂存区的内容提交到本地版本库
+# git push origin 分支 --上传到远程
+
+
+# git stash ---隐藏开发区的未提交的文件
+# git stash list ---显示隐藏开发区的未提交的文件
 
 # 启用隐藏文件
 # git stash apply stash@{n}

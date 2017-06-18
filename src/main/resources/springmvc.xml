@@ -1,0 +1,132 @@
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context" xmlns:util="http://www.springframework.org/schema/util" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/util
+        http://www.springframework.org/schema/util/spring-util-3.1.xsd
+        http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context-3.1.xsd
+        http://www.springframework.org/schema/mvc
+       http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd">
+
+
+	<mvc:annotation-driven validator="validator" />
+
+	<bean id="validator" class="admin.jiuxian.core.ValidatorFactoryBean">
+		<property name="providerClass" value="org.hibernate.validator.HibernateValidator" />
+	</bean>
+
+	<context:component-scan base-package="admin.jiuxian.controller" />
+	
+
+	<!-- 视图解析器配置 -->
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.velocity.VelocityLayoutViewResolver">
+		<property name="prefix" value="vm/pages/"></property>
+		<property name="suffix" value=".vm"></property>
+		<property name="exposeSessionAttributes" value="false"></property>
+		<property name="exposeRequestAttributes" value="true"></property>
+		<property name="dateToolAttribute" value="datetool"></property>
+		<property name="numberToolAttribute" value="numbertool"></property>
+		<property name="contentType" value="text/html;charset=UTF-8"></property>
+		<property name="toolboxConfigLocation" value="/WEB-INF/classes/velocity_toolbox.xml"></property>
+		<property name="layoutUrl" value="vm/layout/default.vm"></property>
+		<property name="layoutKey" value="layoutPath"></property>
+		<property name="screenContentKey" value="screen_content"></property>
+		<property name="exposeSpringMacroHelpers" value="true"></property>
+	</bean>
+	<bean id="velocityConfig" class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
+		<property name="resourceLoaderPath" value="WEB-INF"></property>
+		<property name="configLocation" value="WEB-INF/classes/velocity.properties"></property>
+	</bean>
+
+	<!-- 系统异常跳转 -->
+  	<bean id="errorHandler" class="admin.jiuxian.core.MappingExceptionResolver">
+		<property name="defaultErrorView" value="syserror/error"></property>
+		<property name="exceptionMappings">
+			<map>
+				<entry key="admin.jiuxian.exception.UnauthorizedAccessException" value="syserror/unauthorizedAccess" />
+				<entry key="admin.jiuxian.exception.ValidException" value="syserror/validException" />
+				<entry key="java.lang.IllegalArgumentException" value="syserror/illegalArgument" />
+			</map>
+		</property>
+	</bean>
+
+
+	<!-- 文件上传配置 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- 上传文件的大小限制
+			<property name="maxUploadSize" value="${upload.file.maxSize}"></property>
+		-->
+		<property name="uploadTempDir" value="tmp"></property>
+	</bean>
+
+
+	<!-- 安全检查拦截器 -->
+	<bean id="securityCheckInterceptor" class="admin.jiuxian.interceptors.SecurityCheckInterceptor">
+		<property name="excludeUrl">
+			<list value-type="java.lang.String">
+				<value>.*check.htm</value>
+				<value>.*login.htm</value>
+				<value>.*logout.htm</value>
+				<value>.*getcheckcode.htm</value>
+				<value>.*monitortest.htm</value>
+				<!-- 过滤掉proErp接口下的所有请求 -->
+				<value>.*proErp/.*.htm</value>
+				<value>.*synerp/.*.htm</value>
+				<value>.*/sentCoupon/selectUser.htm</value>
+				<value>.*/help/piclist.htm</value>
+			</list>
+		</property>
+	</bean>
+	<!-- 菜单导航拦截器 -->
+	<bean id="navigatorInterceptor" class="admin.jiuxian.interceptors.NavigatorInterceptor">
+		<property name="excludeUrl">
+			<list value-type="java.lang.String">
+				<value>.*login.htm</value>
+				<value>.*check.htm</value>
+				<value>.*logout.htm</value>
+				<value>.*getcheckcode.htm</value>
+				<value>.*monitortest.htm</value>
+				<!-- 过滤掉proErp接口下的所有请求 -->
+				<value>.*proErp/.*.htm</value>
+				<value>.*synerp/.*.htm</value>
+				<value>.*agentErp/.*.htm</value>
+				<value>.*change_pwd/changePwd.htm</value>
+				<value>.*/sentCoupon/selectUser.htm</value>
+				<value>.*/help/piclist.htm</value>
+			</list>
+		</property>
+	</bean>
+	<!--
+		<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
+		<property name="interceptors">
+		<list>
+		<ref bean="loginCheckInterceptor" />
+		<ref bean="navigatorInterceptor" />
+		</list>
+		</property>
+		</bean>
+	-->
+
+
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**/*.htm" />
+			<ref local="securityCheckInterceptor" />
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/**/*.htm" />
+			<ref local="navigatorInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
+
+	<!-- url映射至controller
+		<bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+		<props>
+		<prop key="/index.htm">adminController</prop>
+		</props>
+		</property>
+		</bean>
+	-->
+</beans>

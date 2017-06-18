@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop-4.2.xsd">
+        
+        <bean id="iocTest" class="com.zy.ioc.IocTest" >
+        	<property name="age" value="80"></property>
+        	<constructor-arg type="String" value="aa" />
+        	<constructor-arg type="int" value="66" />
+        </bean>
+        
+        
+        <bean id="teacher" class="com.zy.aop.Teacher">
+        	<property name="name" value="Mrs.zhao"></property>
+        </bean>
+        
+        <bean id="student" class="com.zy.aop.Student">
+        	<property name="name" value="Mr.qian"></property>
+        </bean>
+        
+        <bean id="timeShow" class="com.zy.aop.TimeShow" />
+        
+        <aop:config>
+        	<aop:aspect id="time" ref="timeShow">
+        		<aop:pointcut expression="execution(* com.zy.aop.IAopTest.*(..))" id="aopMethod"/>
+        		<aop:before method="show" pointcut-ref="aopMethod"/>
+        		<aop:after method="show2" pointcut-ref="aopMethod"/>
+        	</aop:aspect>
+        </aop:config>
+        <!-- <aop:after-returning method="adviceAfterReturning" pointcut-ref="aopMethod"/>
+        <aop:around method="adviceAround" pointcut-ref="aopMethod"/>
+        <aop:after-throwing method="adviceAfterThrowing" pointcut-ref="aopMethod"/> -->
+        
+        
+        
+        
+        
+        
+</beans>

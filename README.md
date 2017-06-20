@@ -15,6 +15,7 @@
 # git merge 分支---将分支合并到当前分支(Fast forward快进模式，合并后历史中也看不出合并)
 # git merge --no-ff 分支（合并后有合并记录）
 
+
 # git branch -d 分支---删除本地分支
 # git push --delete origin 分支---删除远程分支
 

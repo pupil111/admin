@@ -1,0 +1,133 @@
+##布局
+#macro(layout $key)
+	#if($key=="Simple")#set($layoutPath="vm/layout/simple.vm")
+	#elseif($key=="Blank")#set($layoutPath="vm/layout/blank.vm")
+	#elseif($key=="HeaderFooter")#set($layoutPath="vm/layout/head_footer.vm")
+	#elseif($key=="Login")#set($layoutPath="vm/layout/login.vm")
+	#else #set($layoutPath="vm/layout/default.vm")
+	#end
+#end
+
+#macro(title $val)#set($pagetitle = $val)#end
+#macro(keywords $val)#set($pageKeywords = $val)#end
+#macro(description $val)#set($pageDescription = $val)#end
+#macro(addHead $head)
+#if($_page_heads)#set($_page_heads=$_page_heads+"^"+$head)
+#else#set($_page_heads=$head)#end
+#end
+
+##分页标签(支持用户改变每页显示数量)
+#macro(pager $pager)
+<div class="man_page right">
+	#set($uri = $request.getRequestURI())
+	#if($!request.getContextPath() != "")
+		#set($uri = $stringUtils.substringAfterLast($request.getRequestURI(),$!request.getContextPath()))
+	#end
+	#set($paramKey = "")
+	#foreach($param in $request.getParameterNames())
+		#if($param!="pageNum")
+		#set($paramKey = $paramKey + $param + "=" + $request.getParameter($param))
+		#end
+		#if($velocityHasNext)
+			#set($paramKey = $paramKey + "&")
+		#end
+	#end
+	#set($paramKeyByPageSize = "")
+	#foreach($param in $request.getParameterNames())
+		#if($param!="pageSize")
+		#set($paramKeyByPageSize = $paramKeyByPageSize + $param + "=" + $request.getParameter($param))
+		#if($velocityHasNext)
+			#set($paramKeyByPageSize = $paramKeyByPageSize + "&")
+		#end
+		#end
+	#end
+	#set($ii=1)
+	#set($maxI=7)
+	#set($currPage=1)
+	#set($pages = 100/10+1)
+	#set($tmpPage = 1)
+	##上一页
+	#set($prePageUrl = $uri + "?pageNum=" + ($pager.pageNum - 1) + "&" + $!paramKey)
+	##下一页
+	#set($nextPageUrl = $uri + "?pageNum=" + ($pager.pageNum + 1) + "&" + $!paramKey)
+    ##首页
+	#set($firstPageUrl = $uri + "?pageNum=1" + "&" + $!paramKey)
+	##尾页
+	#set($lastPageUrl = $uri + "?pageNum=" + ($pager.pageCount) + "&" + $!paramKey)
+	##跳转页
+	#set($tempPageUrl = $uri + "?" + $!paramKey)
+	##跳转页,根据pageSize跳转
+	#set($tempPageUrlByPageSize = $uri + "?" + $!paramKeyByPageSize)
+	#if($isSuportPageSize)
+    	<div class="everyPagesSum">每页显示
+    		<select style="width:60px" class="interfaceForm-01" onchange="jumpByPageSize('$tempPageUrlByPageSize', this.value)">
+            <option value="10" #if($!pager.pageSize==10) selected #end >10</option>
+            <option value="30" #if($!pager.pageSize==30) selected #end >30</option>
+            <option value="50" #if($!pager.pageSize==50) selected #end >50</option>
+            <option value="100" #if($!pager.pageSize==100) selected #end >100</option>
+            </select>条&nbsp;,&nbsp;共<span>$!pager.recordCount</span>条，共<span>$!pager.recordCount</span>条
+        </div>
+	#else
+		<div class="everyPagesSum">每页显示$!pager.pageSize条&nbsp;,&nbsp;共<span>$!pager.recordCount</span>条，共<span>$!pager.recordCount</span>条
+        </div>
+	#end
+	<div class="oPages">
+	
+    <a href="$!firstPageUrl" title="首页" style="width: 40px;">&laquo;首页</a>
+	#if($pager.pageNum == 1 )
+	<a href="javascript:void(0)" title="上一页" style="width: 40px;">上一页</a>
+	#else
+    <a href="$!prePageUrl" title="上一页" style="width: 40px;">上一页</a> 
+	#end
+	
+	#set($cyclCousnts = $maxI/2)
+	#foreach($i in [1..7])  
+		#if($!{pager.pageNum})
+	    #if($!{pager.pageNum} > $cyclCousnts)		
+		#set($currcount = $i) 
+		#set($tmpPage = $!{pager.pageNum}-$cyclCousnts+${currcount}-$ii)
+		#else
+		#set($tmpPage= $i)	
+		#end
+	    #if($tmpPage == $!{pager.pageNum} )
+			<a href="$uri?pageNum=$tmpPage&$!paramKey" class="man_page_on" ><em style="font-weight:bold;color:#FF0000">$tmpPage</em></a>
+		#elseif($tmpPage <= $!{pager.getPageCount()})
+			<a href="$uri?pageNum=$tmpPage&$!paramKey" class="man_page_on">$tmpPage</a>
+		#end
+		#end
+	#end
+		
+	#if($pager.pageNum ==$pager.pageCount || $pager.pageCount == 0)
+	<a href="javascript:void(0)" title="下一页" style="width: 40px;">下一页</a>
+	#else
+    <a href="$!nextPageUrl" title="下一页" style="width: 40px;" >下一页</a>
+	#end
+    <a href="$!lastPageUrl" title="尾页" style="width: 40px;">尾页&raquo;</a>
+	</div>
+    <div class="currentPageNum">#if($!pager.pageNum == "") 1 #else $!pager.pageNum #end/#if($!pager.getPageCount() == "") 1 #else $!pager.getPageCount() #end</div>
+    <div class="everyPagesSum">&nbsp;&nbsp;&nbsp;转到<span><input onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" class="interfaceForm-01" style="width:20px;" type="text" id="pageNum" value="$!pager.pageNum" maxlength="3"/></span>页</div>  
+    <a href="#" class="interfaceForm-01" id="pageLink" title="确定" style="width: 40px; float:left;" onclick="setpageNum('$!tempPageUrl',this)" >确定&raquo;</a> 
+</div>
+#end
+
+#macro(adPic $path)http://img.zhongniang.com/bill$!path#end
+#macro(goodsPic $path)http://img.zhongniang.com/$!path#end
+##商品详情链接
+#macro(goodUrl $id)http://www.zhongniang.com/item/goods-$!{id}.htm#end
+
+##====常量字段=====
+#macro(resourceType $type)
+#if($type==1) 一级导航 #elseif($type==2) 二级菜单 #elseif($type==3) 按钮 #else 未知 #end
+#end
+
+#macro(brandState $key)
+#if($key==0)屏蔽#elseif($key==1)显示 #end
+#end
+
+#macro(pageLocationValue $key)
+#if($key==1) 页面顶部logo #elseif($key==2) 轮播图 #elseif($key==3) 轮播图下方banner #elseif($key==4) 页面中间小图商品
+#elseif($key==5) 轮播图下方banner2 #elseif($key==6) 页面中间小图商品2 #elseif($key==7) 轮播图下方banner3 #elseif($key==8) 页面中间小图商品3
+#elseif($key==9) 轮播图下方banner4 #elseif($key==10) 页面中间小图商品4 #elseif($key==11) 轮播图下方banner5 #elseif($key==12) 页面中间小图商品5
+#elseif($key==13) 轮播图下方banner6 #elseif($key==14) 页面中间小图商品6 #elseif($key==15) 页面中部-大-小图商品-小图 #elseif($key==16) 页面下方小图商品
+#elseif($key==17) 公司简介上方banner #elseif($key==18) 公司简介左边图片 #elseif($key==19) 页面下方大图 #elseif($key==20) 页面中部-大-小图商品-大图 #end
+#end

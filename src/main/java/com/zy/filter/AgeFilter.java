@@ -32,8 +32,9 @@ public class AgeFilter implements Filter {
 		System.out.println(request.getServerName());
 		System.out.println(request.getServletPath());
 		
+		System.out.println("=======过滤器========");
 		chain.doFilter(req, res);
-		
+		System.out.println("=======过滤器========");
 		
 		System.out.println("当前时间是："+System.currentTimeMillis());
 		

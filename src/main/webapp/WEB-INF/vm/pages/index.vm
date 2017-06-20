@@ -1,0 +1,10 @@
+<body >
+	
+	<form >
+        <input id="name" type="text" name="name" value="$!name"></input>
+        <input id="age" type="text" name="age" value="$!age"></input>
+		<input id="sex" type="text" name="sex" value="${request['sex']}"></input>
+		<input id="hight" type="text" name="hight" value="${request['hight']}"></input>
+    </form>
+	#pager($!pager)
+</body>

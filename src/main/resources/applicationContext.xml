@@ -3,7 +3,7 @@
 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
 http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
 
-	<import resource="classpath:mq.xml"/>
+	<!-- <import resource="classpath:mq.xml"/>
 
 	<context:property-placeholder location="classpath:jdbc.properties" ignore-unresolvable="true"/>
 	<context:property-placeholder location="classpath:mail.properties" ignore-unresolvable="true"/>
@@ -11,48 +11,48 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 
 	<context:component-scan base-package="admin.jiuxian.service,admin.jiuxian.sms,admin.jiuxian.business" />
 	
-	<!-- 数据源 -->
-	<!-- 数据源父类：提供连接池配置 -->
+	数据源
+	数据源父类：提供连接池配置
 	<bean id="dataSourceBase" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
 		<property name="driverClassName" value="${driverClass}" />
-	 	<!-- 基本属性 url、user、password 
+	 	基本属性 url、user、password 
 		<property name="url" value="${main.url}" />
 		<property name="username" value="${main.username}" />
 		<property name="password" value="${main.password}" />
-		-->
-		<!-- 配置初始化大小、最小、最大 -->
+		
+		配置初始化大小、最小、最大
 		<property name="initialSize" value="${pool.initialSize}" />
 		<property name="minIdle" value="${pool.minIdle}" />
 		<property name="maxActive" value="${pool.maxActive}" />
-		<!-- 配置获取连接等待超时的时间 -->
+		配置获取连接等待超时的时间
 		<property name="maxWait" value="60000" />
-		<!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+		配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
 		<property name="timeBetweenEvictionRunsMillis" value="60000" />
-		<!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+		配置一个连接在池中最小生存的时间，单位是毫秒
 		<property name="minEvictableIdleTimeMillis" value="300000" />
 		<property name="validationQuery" value="SELECT 'x'" />
 		<property name="testWhileIdle" value="true" />
 		<property name="testOnBorrow" value="false" />
 		<property name="testOnReturn" value="false" />
-		<!-- 打开PSCache，并且指定每个连接上PSCache的大小 
+		打开PSCache，并且指定每个连接上PSCache的大小 
 		<property name="poolPreparedStatements" value="true" />
 		<property name="maxPoolPreparedStatementPerConnectionSize" value="20" />
-		-->
-  	    <!-- 配置监控统计拦截的filters -->
+		
+  	    配置监控统计拦截的filters
 		<property name="filters" value="stat" />
-		<!-- 是否合并多个druidDataSource的统计数据 
+		是否合并多个druidDataSource的统计数据 
 		<property name="useGloalDataSourceStat" value="true" />
-		-->
+		
 	</bean>
 	
-	<!-- 主库 -->
+	主库
 	<bean id="main-master" parent="dataSourceBase">
 		<property name="url" value="${main.url}"></property>
 		<property name="username" value="${main.username}"></property>
 		<property name="password" value="${main.password}"></property>
 	</bean>
 
-	<!-- 从库 -->
+	从库
 	<bean id="main-slave1" parent="dataSourceBase">
 		<property name="url" value="${main.slave1.url}"></property>
 		<property name="username" value="${main.slave1.username}"></property>
@@ -61,56 +61,56 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 	<bean id="main-slave2" parent="main-slave1"></bean>
 	<bean id="main-slave3" parent="main-slave1"></bean>
 	<bean id="main-slave4" parent="main-slave1"></bean>
-	<!-- 日志库 -->
+	日志库
 	<bean id="logdb-master" parent="dataSourceBase">
 		<property name="url" value="${logdb.url}"></property>
 		<property name="username" value="${logdb.username}"></property>
 		<property name="password" value="${logdb.password}"></property>
 	</bean>
-	<!-- 购物车库 -->
+	购物车库
 	<bean id="shoppingcartdb-master" parent="dataSourceBase">
 		<property name="url" value="${shoppingCartDb.url}"></property>
 		<property name="username" value="${shoppingCartDb.username}"></property>
 		<property name="password" value="${shoppingCartDb.password}"></property>
 	</bean>
-	<!-- 图片库 -->
+	图片库
 	<bean id="picture-master" parent="dataSourceBase">
 		<property name="url" value="${picdb.url}"></property>
 		<property name="username" value="${picdb.username}"></property>
 		<property name="password" value="${picdb.password}"></property>
 	</bean>
-	<!-- 管理员库 -->
+	管理员库
 	<bean id="admin-master" parent="dataSourceBase">
 		<property name="url" value="${powerdb.url}"></property>
 		<property name="username" value="${powerdb.username}"></property>
 		<property name="password" value="${powerdb.password}"></property>
 	</bean>
-	<!-- 权限库 -->
+	权限库
 	<bean id="power-master" parent="dataSourceBase">
 		<property name="url" value="${powerdb.url}"></property>
 		<property name="username" value="${powerdb.username}"></property>
 		<property name="password" value="${powerdb.password}"></property>
 	</bean>
-	<!-- 用户库(注册用户) -->
+	用户库(注册用户)
 	<bean id="user-master" parent="dataSourceBase">
 		<property name="url" value="${userdb.url}"></property>
 		<property name="username" value="${userdb.username}"></property>
 		<property name="password" value="${userdb.password}"></property>
 	</bean>
-	<!-- 中酿用户库(用户) -->
+	中酿用户库(用户)
 	<bean id="gysuser-master" parent="dataSourceBase">
 		<property name="url" value="${gysuserdb.url}"></property>
 		<property name="username" value="${gysuserdb.username}"></property>
 		<property name="password" value="${gysuserdb.password}"></property>
 	</bean>
-	<!-- 订单库 -->
+	订单库
 	<bean id="order-master" parent="dataSourceBase">
 		<property name="url" value="${orderdb.url}"></property>
 		<property name="username" value="${orderdb.username}"></property>
 		<property name="password" value="${orderdb.password}"></property>
 	</bean>
 	
-	<!-- 数据源路由 -->
+	数据源路由
 	<bean id="dataSource" class="admin.jiuxian.core.RoutingDataSource">
 		<property name="targetDataSources">
 			<map>
@@ -131,7 +131,7 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 		</property>
 		<property name="defaultTargetDataSource" ref="main-master"></property>
 	</bean>
-	<!-- Mybatis配置 -->
+	Mybatis配置
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"></property>
 		<property name="mapperLocations" value="classpath:admin/jiuxian/dao/**/*.xml"></property>
@@ -147,7 +147,7 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 		<property name="basePackage" value="admin.jiuxian.dao"></property>
 	</bean>
 
-	<!-- 事务管理 -->
+	事务管理
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
@@ -160,7 +160,7 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 		</property>
 	</bean>
 	
-	<!-- 数据源自动切换拦截器 -->
+	数据源自动切换拦截器
 	<bean id="beanNameDatasourceAutoChanger" class="admin.jiuxian.core.BeanNameDatasourceAutoChanger">
 		<property name="rules">
 			<map>
@@ -188,10 +188,10 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 			</list>
 		</property>
 	</bean>
-	<!-- 继承ApplicationContextAware，方便运行时从容器中获取bean实例 -->
+	继承ApplicationContextAware，方便运行时从容器中获取bean实例
 	<bean class="admin.jiuxian.core.SpringContext"></bean>
 	
 	<import resource="classpath:dubbo.xml" />
-	
+	 -->
 <!-- 	<import resource="classpath:javamail.xml" /> -->
 </beans>

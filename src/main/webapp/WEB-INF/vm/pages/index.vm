@@ -6,5 +6,49 @@
 		<input id="sex" type="text" name="sex" value="${request['sex']}"></input>
 		<input id="hight" type="text" name="hight" value="${request['hight']}"></input>
     </form>
-	#pager($!pager)
+	##pager($!pager)
+	
+	
+	<br/>
+	
+	<div id="div1" style="width:100px;height:100px;background-color:red">
+		1000
+        <div id="div1" style="width:50px;height:50px;background-color:black"></div>
+		1000</div>
+	
+	<div id="div2" style="width:100px;height:100px;background-color:green;">2000display:none</div>
+	
+	<script >
+	var num = 0;
+		
+		$("#div1").hover(function(){
+			//$("#div2").show();
+			//$("#div2").fadeIn();
+			$('#div2').html(function (index, value) {
+            	return value + '1';
+            });
+		},function(){
+			//$("#div2").hide();
+			//$("#div2").fadeOut();
+			$('#div2').html(function (index, value) {
+            	return value + '1';
+            });
+		});
+		
+		
+		//$("#div1").mouseenter(function(){$("#div2").show(); console.log(num++);});
+		//$("#div1").mouseleave(function(){$("#div2").hide(); console.log(num++);});
+		
+		//$("#div1").mouseover(function(){$("#div2").show();console.log(num++);});
+		//$("#div1").mouseout(function(){$("#div2").hide();console.log(num++);});
+		
+		/*
+		$('#div1').mouseover(function() { //over会触发子节点
+            $('#div2').html(function (index, value) {
+            	return value + '1';
+            });
+        });
+		*/
+    </script>
+	
 </body>

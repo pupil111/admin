@@ -1,5 +1,6 @@
 package com.zy.controller;
 
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,6 +23,31 @@ public class UserController {
 	@RequestMapping("/getUser")
 	public String getUser(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{
 		
+		String name = request.getParameter("name");
+		
+		//String name1 = URLEncoder.encode(name, "UTF-8");
+		
+		//String name2 = new String(name.getBytes(), "UTF-8");
+		
+		
+		
+		System.out.println(name);
+		
+		String age = request.getParameter("age");
+		System.out.println(age);
+		
+		String sex = request.getParameter("sex");
+		System.out.println(sex);
+		
+		String height = request.getParameter("height");
+		System.out.println(height);
+		
+		
+		model.addAttribute("name", name+1);
+		model.addAttribute("age", age+1);
+		model.addAttribute("sex", sex+1);
+		model.addAttribute("height", height+1);
+		
 		System.out.println("进入controller方法了");
 		
 //		PrintWriter out = response.getWriter();
@@ -30,8 +56,6 @@ public class UserController {
 		Pager<String> pager = new Pager<String>(15);
 		System.out.println(request.getParameter("sex"));
 		request.setAttribute("hight", 1.5);
-		model.addAttribute("name", "张三");
-		model.addAttribute("age", 15);
 		model.addAttribute("pager", pager);
 		System.out.println(model.asMap().get("name"));
 		System.out.println(model.asMap().get("age"));

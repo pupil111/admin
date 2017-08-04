@@ -1,24 +1,67 @@
 <body >
 	
-	<form >
+	<form id="myform" method="get" action="/adminTest/User/getUser.htm">
+        <span id="show"></span>
+		<br/>
+		<span>姓名</span>
         <input id="name" type="text" name="name" value="$!name"></input>
-        <input id="age" type="text" name="age" value="$!age"></input>
-		<input id="sex" type="text" name="sex" value="${request['sex']}"></input>
-		<input id="hight" type="text" name="hight" value="${request['hight']}"></input>
+		<br/>
+        <span>年龄</span>
+		<input id="age" type="text" name="age" value="$!age"></input>
+		<br/>
+		<span>性别</span>
+		<input id="sex" type="text" name="sex" value="$!sex"></input>
+		<br/>
+		<span>身高</span>
+		<input id="height" type="text" name="height" value="$!height"></input>
+		<br/>
+		<input type="button" value="提交" onclick="submit()" />
     </form>
 	##pager($!pager)
 	
 	
 	<br/>
 	
-	<div id="div1" style="width:100px;height:100px;background-color:red">
+	<div pro="aa" duct="bb" id="div1" style="width:100px;height:100px;background-color:red">
 		1000
         <div id="div1" style="width:50px;height:50px;background-color:black"></div>
 		1000</div>
 	
 	<div id="div2" style="width:100px;height:100px;background-color:green;">2000display:none</div>
 	
+	<table id="tab">
+		<tr a="t1" b="b1" ></tr>
+		<tr a="t2" b="b2" ></tr>
+		<tr a="t3" b="b3" ></tr>
+    </table>
+	
+	
 	<script >
+		
+		function submit(){
+			
+			$("#name").val($("#name").val());
+			$("#sex").val($("#sex").val());
+			$("#show").text("编码方式为" + "无");
+		
+			$("#myform").submit();
+		
+		}
+	
+	
+		//alert($("#div1").attr("pro"));
+		//alert($("#div1").attr("duct"));
+		
+		/*$("#tab tr").each(function(index,item){
+			alert("===a======")
+			alert(index);
+			alert(item);
+			alert($(item));
+			alert($(item).attr("a"));
+			alert($(item).attr("b"));
+		});*/
+		
+	/*
 	var num = 0;
 		
 		$("#div1").hover(function(){
@@ -34,6 +77,8 @@
             	return value + '1';
             });
 		});
+		
+		*/
 		
 		
 		//$("#div1").mouseenter(function(){$("#div2").show(); console.log(num++);});

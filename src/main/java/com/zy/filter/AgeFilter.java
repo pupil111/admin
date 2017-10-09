@@ -17,7 +17,7 @@ public class AgeFilter implements Filter {
 	private FilterConfig config;
 	
 	public void destroy() {
-		System.out.println(config.getFilterName()+" end");
+		//System.out.println(config.getFilterName()+" end");
 		this.age = null;
 		this.config = null;
 	}

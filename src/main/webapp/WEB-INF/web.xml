@@ -15,7 +15,7 @@
   	<param-value>classpath:applicationContext.xml</param-value>
   </context-param>
   
-  	<filter>
+  	<!-- <filter>
   		<filter-name>filterName</filter-name>
   		<filter-class>com.zy.filter.AgeFilter</filter-class>
   		<init-param>
@@ -42,7 +42,7 @@
 	<filter-mapping>
 		<filter-name>characterEncodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
-	</filter-mapping>
+	</filter-mapping> -->
   <listener>
   	<display-name>springContextLoaderListener</display-name>
   	<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>

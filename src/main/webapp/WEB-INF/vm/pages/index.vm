@@ -47,7 +47,89 @@
 			$("#myform").submit();
 		
 		}
-	
+		
+		var name = "The Window";
+
+　　var object = {
+　　　　name : "My Object",
+
+　　　　getNameFunc : function(){
+　　　　　　var that = this;
+　　　　　　return function(){
+　　　　　　　　return that.name;
+　　　　　　};
+
+　　　　}
+
+　　};
+
+　　alert(object.getNameFunc()());
+
+var object1 = {
+　　　　name : "My Object",
+
+　　　　getNameFunc : function(){
+　　　　　　return function(){
+
+			var a = this.name;
+　　　　　　　　return a;
+　　　　　　};
+
+　　　　}
+
+　　};
+
+　　alert(object1.getNameFunc()());
+
+/*
+		function f3(){
+			
+			var num = 5;
+			var n = 6;
+			
+			ad = function(){alert(++num);}
+			
+			function f4(){
+				alert(num + n);
+			}
+			
+			return f4;
+		}
+		
+		var aaa = f3();
+		aaa(); 
+		ad();
+		aaa();
+		
+		
+		
+		
+       function f1(){
+            
+            　　　　var n=999;
+            
+            　　　　nAdd=function(){n++}
+            
+            　　　　function f2(){
+            　　　　　　alert(n);
+            　　　　}
+            
+            　　　　return f2;
+            
+            　　}
+            
+            　　var result=f1();
+			
+	   nAdd();
+            
+            　　result(); // 1000
+            
+            　　result(); // 999
+            
+            　　
+			
+		*/
+		
 	
 		//alert($("#div1").attr("pro"));
 		//alert($("#div1").attr("duct"));

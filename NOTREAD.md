@@ -30,6 +30,11 @@
 # ++++++++++tag++++++++++++
 
 # git tag --展示tag信息
+# git show tagName --展示tag信息
+# git tag tagName --新增tag信息
+# git tag -a tagName -m message --新增包含注释的tag
+# git tag -a tagName commitId --根据提交ID新增tag
+# git branch 新分支 tagName --根据tagName拉取分支
 
 # ++++++++++tag++++++++++++
 

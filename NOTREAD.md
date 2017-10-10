@@ -2,6 +2,8 @@
 
 # git branch --展示所有分支
 # git branch 新分支--在当前分支商新增
+# git branch 新分支 tagName --根据tagName拉取分支
+# git branch 新分支 commitId --根据commitId拉取分支
 # git branch -d 分支--删除本地分支
 # git checkout 分支--切换分支
 # git checkout -b 新分支--新增并切换分支
@@ -29,7 +31,11 @@
 
 # ++++++++++tag++++++++++++
 
-
+# git tag --展示tag信息
+# git show tagName --展示tag信息
+# git tag tagName --新增tag信息
+# git tag -a tagName -m message --新增包含注释的tag
+# git tag -a tagName commitId --根据提交ID新增tag
 
 # ++++++++++tag++++++++++++
 
